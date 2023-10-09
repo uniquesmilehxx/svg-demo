@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>05——分组和坐标系</title>
+  <style>
+    .container {
+      width: 100%;
+      height: 1000px;
+      padding: 100px;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- 
+
+      一、在svg中，使用 <g> 标签来创建分组
+
+        - <g> 标签内部的图形，会继承其属性（可以做一些样式复用）
+        - <g> 可以使用 transform 属性进行坐标变换，变换之后可以理解为新的自身坐标系
+        - <g> 标签可以嵌套使用
+     -->
+
+    <!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="500" height="500">
+      <g stroke="green" fill="none" transform="translate(0, 50)">
+        <rect x="100" y="50" width="100" height="50"></rect>
+        <rect x="140" y="100" width="20" height="120"></rect>
+      </g>
+    </svg> -->
+
+
+
+    <!-- 
+
+      二、坐标系与坐标变换
+
+        - 数学上的坐标系统，大部分是指 笛卡尔直角坐标系（x向右，y向上，角度为 逆时针）
+        - 在svg中，坐标系统同样也是笛卡尔直角坐标系（x向右，y向下，角度为 顺时针）
+
+        - svg中，共有4种坐标系
+        
+          - 用户坐标系：最原始的svg坐标系（图示 05-1）
+          - 自身坐标系：每个图形元素 或 分组 独立与生俱来（图示 05-2）
+          - 前驱坐标系：即 父级 坐标系。自身坐标系 不发生变换 的情况下，和前驱坐标系是重合的（图示 05-3）
+          - 参考坐标系：是一种 相对 的概念，没有特指哪个坐标系
+
+        - 再来看一下上面的例子，它体现的坐标系信息有哪些？（图示 05-total）
+
+          - svg的坐标系为 OA ，也是原始的用户坐标系
+          - 分组B的坐标系为 OB ，translate(0, 50) 后，OB坐标系 整体下移50像素，注意是OB【坐标系本身下移】，而不是OB的内容下移
+          - rect C的坐标系为OC ，宽高是自己的属性，x、y则是相对于【自身坐标系】OC的坐标值,OC没有变换，所以与父级坐标系重合
+          - rect D的坐标系为 OD ，细节解释同OC
+          - 由于C、D没有translate，所以OB、OC、OD重合
+
+     -->
+
+     <a href="./06_图形引用.html">06_图形引用</a>
+
+  </div>
+</body>
+</html>

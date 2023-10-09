@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>02——svg绘制基本图形，了解常用的属性</title>
+  <style>
+    .container {
+      width: 100%;
+      height: 1000px;
+      padding: 100px;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- 
+      一、基本图形标签、通用属性
+
+        - 有 6 种基本的图形（可以成对，也可以自闭合）
+          <rect > 矩形
+          <circle> 圆形 
+          <ellipse> 椭圆形
+          <line> 直线（数学上的线段）
+          <polyline> 折线
+          <polygon> 多边形
+
+
+        - 还有一些通用的属性，比如 fill（填充）、stroke（边框）、transform（变换）等
+
+        - 在svg坐标系中，x轴正方向 向右 ，y轴正方向 向下
+    -->
+
+    <!-- 
+      二、矩形（图示 02-rect）
+
+        - x：距离坐标系的 横向坐标值（坐标系的概念后面会提到）
+        - y：距离坐标系的 纵向坐标值
+        - width：矩形 宽度
+        - height：矩形 高度
+        - rx：横向 的 圆角值
+        - ry：纵向 的 圆角值
+    -->
+
+    <!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+      <rect width="300" height="100" style="fill:rgb(0,0,255);"/>
+    </svg> -->
+
+
+    <!-- 
+      三、圆形（图示 02-circle）
+
+        - cx：圆心 距离坐标系的 横向坐标值
+        - cy：圆心 距离坐标系的 纵向坐标值
+        - r：半径
+    -->
+
+    <!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+      <circle
+        cx="150"
+        cy="75"
+        r="40"
+        stroke="orange"
+        stroke-width="5"
+        fill="red"
+      />
+    </svg> -->
+
+
+    <!-- 
+      四、椭圆（图示 02-ellipse）
+        - cx：圆心 距离坐标系的 横向坐标值
+        - cy：圆心 距离坐标系的 纵向坐标值
+        - rx：水平半径
+        - ry：垂直半径
+     -->
+
+    <!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+      <ellipse
+        cx="150"
+        cy="80"
+        rx="100"
+        ry="50"
+        style="fill:yellow; stroke:purple; stroke-width:2"
+      />
+    </svg> -->
+
+
+    <!-- 
+      五、直线（图示 02-line）
+        这个定义就很简单了，数学上两个点的坐标
+
+        - x1：第一个点 距离坐标系的 横向坐标值
+        - y1：第一个点 距离坐标系的 纵向坐标值
+        - x2：第二个点 距离坐标系的 横向坐标值
+        - y2：第二个点 距离坐标系的 纵向坐标值
+     -->
+    
+    <!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+      <line
+        x1="0"
+        y1="0"
+        x2="200"
+        y2="100"
+        style="stroke:rgb(255,0,0); stroke-width:2"
+      />
+    </svg> -->
+
+    <!-- 
+      六、多线段（图示 02-polyline）
+        points ：多个坐标点的位置集合，傻瓜式写坐标就行，以此类推
+
+        - x1：第一个点 距离坐标系的 横向坐标值
+        - y1：第一个点 距离坐标系的 纵向坐标值
+        - x2：第二个点 距离坐标系的 横向坐标值
+        - y2：第二个点 距离坐标系的 纵向坐标值
+        - ......
+     -->
+    <!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+      <polyline
+        points="0 40, 40 40, 40 80, 80 80, 80 120, 120 120, 150 70"
+        style="fill:white; stroke:red; stroke-width:4" 
+      />
+    </svg> -->
+
+
+    <!-- 
+      七、多边形（图示 02-polygon）
+        points ：与多线段类似，区别是 最后一个点 会和 第一个点 连起来，形成封闭图形
+
+        - x1：第一个点 距离坐标系的 横向坐标值
+        - y1：第一个点 距离坐标系的 纵向坐标值
+        - x2：第二个点 距离坐标系的 横向坐标值
+        - y2：第二个点 距离坐标系的 纵向坐标值
+     -->
+
+    <!-- <svg xmlns="http://www.w3.org/2000/svg" height="210" width="500">
+      <polygon
+        points="200,10 250,190 160,210"
+        style="fill:lime; stroke:purple; stroke-width:1"
+      />
+    </svg> -->
+
+    <!-- <svg xmlns="http://www.w3.org/2000/svg" height="210" width="500">
+      <polygon points="50,0 60,40 100,50 60,60 50,100 40,60 0,50 40,40" fill='#f06'/>
+      <polyline points="50,0 60,40 100,50 60,60 50,100 40,60 0,50 40,40" fill='#f06' /> 
+      <polyline points="50,0 60,40 100,50 60,60 50,100 40,60 0,50 40,40" style="fill:none;stroke:red;stroke-width:4"  /> 
+    </svg> -->
+
+  <a href="./03_js创建svg.html">03_js创建svg</a>
+
+  </div>
+</body>
+</html>

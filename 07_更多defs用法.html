@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>07——defs的更多用法</title>
+  <style>
+    .container {
+      width: 100%;
+      height: 1000px;
+      padding: 100px;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 
+
+      - defs的功能是创建引用，上一篇演示了创建图形引用，然后用 use 使用的场景
+      - defs拥有更多使用场景，你可以在它内部定义多种内容
+
+
+      一、文本 text
+
+        - 使用 text 标签直接包裹文本（基本不用，可以直接用 html 标签替代）
+        - 文本路径 textPath 设置 xlink:href="#id"，使文本内容渲染在指定的路径上
+
+      -->
+
+
+
+    <!-- 文本 text -->
+
+    <!-- text 的基本使用 -->
+    <!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+      <text x="0" y="15" fill="red">文案测试</text>
+    </svg> -->
+
+    <!-- textPath  -->
+    <!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+      <defs>
+        <path id="path1" d="M75,20 a1,1 0 0,0 100,0" />
+      </defs>
+
+      <text x="10" y="100" style="fill:red;">
+        <textPath xlink:href="#path1">文-字-按-照-路-径-走</textPath>
+      </text>
+    </svg> -->
+
+    <!-- 
+      
+      二、剪切 clipPath
+
+        - 顾名思义，就是剪下来需要的部分
+        - 1、先用 clipPath 定义好需要的形状，并设置id
+        - 2、然后给被裁剪的图形设置clip-path="url(#id)"属性，取原图形和剪切图形的交集
+        - 可通过例子直接查看裁剪区域
+
+     -->
+
+    <!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+      <defs>
+        <clipPath id="clip">
+          <circle cx="100" cy="100" r="50" />
+        </clipPath>
+      </defs>
+
+      <polygon points="100 100 200 200 100 200" fill="rgba(255, 0, 0, 1)" clip-path="url(#clip)" />
+    </svg> -->
+
+
+
+
+    <!-- 
+
+      三、渐变
+
+        - 分为 线性渐变 和 放射性渐变
+        - 定义方式：linearGradient/radialGradient id="id"；使用方式：fill="url(#id)"
+        - 线性渐变
+          - 线性渐变可以定义为水平，垂直或角渐变：
+          - 当 y1 和 y2 相等，而 x1 和 x2 不同时，可创建水平渐变
+          - 当 x1 和 x2 相等，而 y1 和 y2 不同时，可创建垂直渐变
+          - 当 x1 和 x2 不同，且 y1 和 y2 不同时，可创建角形渐变
+
+        - 放射性渐变
+          - cx、cy 和 r 属性定义的最外层圆，fx 和 fy 定义的最内层圆
+            (分别代表的是圆形中心点位置，半径、渐变边缘的位置)
+
+     -->
+    
+    <!-- 线性渐变 - 水平 -->
+    <!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+      <defs>
+        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style="stop-color:rgb(255,255,0);stop-opacity:1" />
+          <stop offset="100%" style="stop-color:rgb(255,0,0);stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <ellipse cx="200" cy="70" rx="85" ry="55" fill="url(#grad1)" />
+    </svg> -->
+
+    
+
+    <!-- 
+
+      四、蒙层 mask
+
+        使用场景：
+        - 确定哪些部分可见，以及具有什么透明度
+        - 蒙版形状的 颜色定义 使用蒙版的形状的不透明度
+          蒙版形状的颜色越接近#ffffff（白色），使用蒙版的形状将越不透明。
+          蒙版形状的颜色越接近#000000（黑色），使用蒙版的形状将越透明。
+
+     -->
+
+    <!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="500" height="500">
+      <mask id="moon-mask">
+        <circle cx="200" cy="200" r="70" fill="#fff" />
+        <circle cx="240" cy="170" r="70" fill="black" />
+      </mask>
+      <circle cx="200" cy="200" r="70" fill="yellow"  mask="url(#moon-mask)"  />
+    </svg> -->
+
+
+    <!-- <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="Gradient">
+          <stop offset="0" stop-color="white" stop-opacity="0" />
+          <stop offset="50%" stop-color="white" stop-opacity="0.6" />
+          <stop offset="1" stop-color="white" stop-opacity="1" />
+        </linearGradient>
+        <mask id="Mask">
+          <rect x="0" y="0" width="200" height="200" fill="url(#Gradient)"  />
+        </mask>
+      </defs>
+    
+      <rect x="0" y="0" width="200" height="200" fill="green" />
+      <rect x="0" y="0" width="200" height="200" fill="red" mask="url(#Mask)" />
+    </svg> -->
+
+
+    <!-- 
+
+      - 日常使用 svg 可能更多的是解决一些零碎的问题（画线、不规则图形、跟用户交互性强的功能）
+      - 有一些功能可以使用 html + css 来替代（矩形、原型、变换等）
+      - 如果真要用 svg 开发一些大工作量的东西，应该就是属于很底层很完善的场景了
+      - 今天只是了解一些基本使用方式，能实现什么功能，后续用的时候去查阅文档即可
+      - 今天的分享结束，感谢收听
+
+     -->
+
+  </div>
+  
+</body>
+</html>

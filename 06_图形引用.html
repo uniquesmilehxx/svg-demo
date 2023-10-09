@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>06——use & defs 图形引用</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .container {
+      width: 100%;
+      height: 800px;
+      box-sizing: border-box;
+
+      /* padding: 100px; */
+      background: #001122;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- 
+
+      一、使用场景
+
+        在 js中，当我们需要重复使用一个字段，会将它定义为一个变量，在多个地方使用;
+        在svg中，当我们需要重复使用一个图形时，要怎么处理呢？答案就是 use & defs
+
+      二、使用步骤
+
+        1、将图形等放在 <defs> 中提前定义好，并设置 id（defs中可设置多个）
+        2、用 <use> 标签的 xlink:href 属性指定对应的 id
+        3、注意，defs 中的内容并不会直接渲染，在使用时才会渲染
+
+     -->
+
+    <!-- <svg>
+      <defs>
+        <polygon id="star" points="0 0 50 0 25 50" fill="blue"></polygon>
+        <polygon id="test" points="0 0 50 0 25 50" fill="blue" transform="scale(2)"></polygon>
+      </defs>
+
+      <use xlink:href="#test"></use>
+    </svg> -->
+
+
+
+    <!-- 
+
+      二、结合 js 使用
+
+        - 前面通过 js 创建简单图形，当然也可以创建 use
+        - createElementNS 创建标签
+        - setAttributeNS 设置 xlink:href
+        - 直接来看一个综合的小例子吧
+
+     -->
+
+    <svg width="100%" height="100%">
+      <defs>
+        <polygon id="star" points="0 -10 2 -2 10 0 2 2 0 10 -2 2 -10 0 -2 -2" fill="white"></polygon>
+      </defs>
+      <g id="star-group"></g>
+    </svg>
+
+  </div>
+
+  <script>
+    // return
+
+    // nameSpace
+    var SVG_NS = 'http://www.w3.org/2000/svg'
+    var XLINK_NS = 'http://www.w3.org/1999/xlink'
+
+
+    var paper = document.querySelector('svg')
+
+
+    renderStar()
+
+
+    // 通过一个已有元素，生成它的引用: <use xlink:href="#star"></use>
+    function use(origin) {
+      var _use = document.createElementNS(SVG_NS, 'use')
+      _use.setAttributeNS(XLINK_NS, 'xlink:href', '#' + origin.id)
+      return _use
+    }
+
+
+    // 获得任意两个数 之间的 随机数
+    function random (min, max) {
+      return min + (max - min) * Math.random()
+    }
+
+    // 渲染星空
+    function renderStar () {
+      var starRef = document.getElementById('star')
+      var starGroup = document.getElementById('star-group')
+      var starCount = 2000
+
+      var fragment = document.createDocumentFragment()
+
+      var star
+      while( starCount -- ) {
+        // 生成star的引用
+        star = use(starRef)
+        // 设置透明度
+        star.setAttribute('opacity', `${random(0.1, 0.3)}`)
+        // 设置transform值（translate、scale之间无分号）
+        // polygon内部如果使用transform，会在父级use变换的基础上，继续进行变换（没有覆盖，只是继续进行）
+        star.setAttribute('transform', `translate(${random(0, 2000)}, ${random(0, 800)})scale(${random(0.1, 0.8)})`)
+        // 追加进文档碎片
+        fragment.appendChild(star)
+      }
+      // 追加
+      starGroup.appendChild(fragment)
+    }
+
+  </script>
+
+  <a href="./07_更多defs用法.html">07_更多defs用法</a>
+
+  
+</body>
+</html>

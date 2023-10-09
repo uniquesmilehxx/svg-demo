@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>03——用 js 创建svg</title>
+  <style>
+    .container {
+      width: 100%;
+      height: 1000px;
+      padding: 100px;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- 
+      实际使用 svg 中，我们经常会用 js 去操作 svg
+
+      一、核心API：
+
+        1、创建图形：ns 指命名空间，tagName 是标签名，例如 svg、rect
+          document.createElementNS(ns, tagName)
+
+        2、添加子节点
+          element.appenChild(childElement)
+
+        3、获取、设置属性
+          element.getAttribute(name)
+          element.setAttribute(name, value)
+
+        4、可根据需要，使用 文档碎片 进行性能优化
+          document.createDocumentFragment()
+
+      二、实例
+
+    -->
+
+    <div id="area"></div>
+
+    <script>
+      
+      // return
+
+      // 命名空间
+      var SVG_NS = "http://www.w3.org/2000/svg"
+      var svgArea = document.getElementById('area')
+    
+      // 1、创建 svg 容器
+      var svg = document.createElementNS(SVG_NS, 'svg')
+    
+      // 2、创建 svg 中的 tag, 如 rect
+      var tag = document.createElementNS(SVG_NS, 'rect')
+    
+      // 3、设置 tag 的属性
+      tag.setAttribute('width', "100")
+      tag.setAttribute('height', "100")
+      tag.setAttribute('fill', "rgba(255,255,255,0)")
+      tag.setAttribute('stroke-width', "1")
+      tag.setAttribute('stroke', "rgb(0,0,255)")
+      tag.setAttribute('x', '20')
+      tag.setAttribute('y', '20')
+    
+      // 4、将 tag 塞进 svg 中
+      svg.appendChild(tag)
+    
+      // 5、将 svg 塞进指定容器
+      svgArea.appendChild(svg)
+
+    </script>
+
+  </div>
+  <a href="./04_path.html">04_path</a>
+
+  
+</body>
+</html>

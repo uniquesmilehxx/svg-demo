@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>01——svg简介及简单使用</title>
+  <style>
+    .container {
+      width: 100%;
+      height: 1000px;
+      padding: 100px;
+      box-sizing: border-box;
+    }
+
+    .rect {
+      width: 300px;
+      height: 180px;
+      background-image: url('./imgs/01-rect.svg');
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 
+
+
+    前言：
+    - svg 的开发，在日常中用的不多，所以本次分享不追求全面、详尽
+    - 了解一些基础功能，在遇到一些碎片化、细微化的需求时，可考虑是否能作为一种选择方案
+
+   -->
+
+
+
+  <!-- 
+
+    一、SVG 意为可缩放矢量图形（Scalable Vector Graphics）
+      
+      svg是使用 XML 描述的矢量文件
+
+      矢量图与位图有什么区别呢？（图示 01-diff）
+      - 位图是基于 像素点 对颜色的描述，所以在放大之后会模糊
+      - 矢量图是基于 数学 的描述，比如圆形，怎么放大都是个圆
+
+
+    二、使用svg的方式
+
+      - img引入
+      - css背景使用
+      - 直接在html中引入
+
+   -->
+
+  <div class="container">
+
+    <!-- 1、img引入 -->
+    <!-- <img src="./imgs/01-rect.svg" alt=""> -->
+    <!-- <img src="./imgs/01-icon.svg" alt=""> -->
+
+    <!-- 2、css背景使用 -->
+    <!-- <div class="rect"></div> -->
+
+    <!-- 3、直接在html中使用 -->
+    <!-- <div>
+      <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <rect x="50" y="20" width="150" height="100" style="fill:white; stroke:pink; stroke-width:5;" />
+      </svg>
+    </div> -->
+
+  </div>
+
+  <a href="./02_基本图形.html">02_基本图形</a>
+  
+</body>
+</html>

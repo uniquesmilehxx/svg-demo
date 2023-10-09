@@ -1,0 +1,5 @@
+<!-- xmlns 是 svg 的命名空间，version 是使用 svg 的版本 -->
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="300" height="180">
+	<!-- 矩形标签及属性，在下一篇文章中有具体介绍 -->
+	<rect x="50" y="20" width="150" height="150" style="fill:white; stroke:pink; stroke-width:2;" />
+</svg>

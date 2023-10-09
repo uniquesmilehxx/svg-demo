@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>04——path的使用</title>
+  <style>
+    .container {
+      width: 100%;
+      height: 1000px;
+      padding: 100px;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+  <!-- 
+
+    一、path 是 svg 中最强大的图形
+
+      - 用于定义一个路径
+      - 所有命令均允许小写字母。大写表示绝对定位，小写表示相对定位（相对于上一个结束的坐标）
+      - d 属性中包含所有路径的点，可根据命令缩写 `自由组合`
+
+
+     命令            名称                                参数
+      M           moveto  移动到                        (x y)+
+      Z          closepath  关闭路径                    (none)
+      L           lineto  画线到                        (x y)+
+      H          horizontal lineto  水平线到              x+
+      V          vertical lineto  垂直线到                y+
+      A        elliptical arc椭圆弧                    (rx ry x-axis-rotation large-arc-flag sweep-flag x y)+
+      C        curveto 三次贝塞尔曲线到                 (x1 y1 x2 y2 x y)+
+      S     smooth curveto光滑三次贝塞尔曲线到          (x2 y2 x y)+
+      Q        Bézier curveto二次贝塞尔曲线到           (x1 y1 x y)+
+      T     smooth Bézier curveto光滑二次贝塞尔曲线到     (x y)+
+
+   -->
+
+
+
+  <!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1000" height="1000"> -->
+
+    <!-- M、L、H、V 简单使用 -->
+    <!-- <path d="M 150 0 L 0 150 L 300 150 Z" fill="pink" /> -->
+    <!-- <path d="M 150 0 L 0 150 H 300 Z" fill="pink" /> -->
+
+    <!-- <path d="M 150 0 L 0 150 V 50 Z" fill="pink" /> -->
+    <!-- <path d="M 150 0 L 0 150 L 300 150 300 100 Z" fill="pink" /> -->
+
+    <!-- l h v 简单使用 -->
+    <!-- <path d="M 150 0 l 0 150 H 300 Z" fill="pink" /> -->
+    <!-- <path d="M 150 0 l 0 150 h 50 Z" fill="pink" /> -->
+    <!-- <path d="M 150 0 l 0 150 h -50 Z" fill="pink" /> -->
+    <!-- <path d="M 150 0 l -50 0 V 100 Z" fill="pink" /> -->
+    <!-- <path d="M 150 0 l -50 50 v 100 Z" fill="pink" /> -->
+  
+  <!-- </svg> -->
+
+  <!-- 
+
+    二、简单使用总结：
+
+      - M 作为起点，Z 作为结束
+      - + 表示一次或多次
+      - M 移动画笔，若有多个参数，会当做是L命令处理
+      - L 画直线；H 移动水平位置；V 移动垂直位置
+      - L 绘制直线到指定位置；  l 从当前绘制直线移动多少多少
+      - H 绘制水平线到指定位置；h 从当前绘制长度为多少的水平线
+      - V 绘制竖直线到指定位置；v 从当前绘制长度为多少的竖直线
+
+  -->
+
+
+  <!-- 
+
+    三、圆弧（A rx ry x-axis-rotation large-arc-flag sweep-flag x  y）
+
+      - 最复杂的命令
+      - rx ry表示 x轴半径 和 y轴半径
+      - x-axis-rotation 表示 x轴旋转角度
+      - large-arc-flag 表示大于180度还是小于180度(1 是大弧线；0 是小弧线)
+      - sweep-flag 表示弧线方向 (0为沿逆时针，1为沿顺时针)
+      - x y为最终坐标
+      - 一个起点、一个终点、两个半径可以确定四段弧线，再通过 laf、sf 筛选
+
+  -->
+
+  <!-- 圆弧：          A rx ry x-axis-rotation large-arc-flag sweep-flag x   y -->
+
+    <!-- x转旋转角度 -->
+    <!-- <svg width="1000" height="400">
+      <path d="M 200 200 A 150 100    0                1          1      300 300" stroke="red" fill="none"> </path>
+    </svg>
+    <svg width="1000" height="400">
+      <path d="M 200 200 A 150 100    30               1          1      300 300" stroke="red" fill="none"> </path>
+    </svg>
+    <svg width="1000" height="400">
+      <path d="M 200 200 A 150 100    60               1          1      300 300" stroke="red" fill="none"> </path>
+    </svg>
+    <svg width="1000" height="400">
+      <path d="M 200 200 A 150 100    90              1          1      300 300" stroke="red" fill="none"> </path>
+    </svg>
+    <svg width="1000" height="400">
+      <path d="M 200 200 A 150 100    180              1          1      300 300" stroke="red" fill="none"> </path>
+    </svg>
+    <svg width="1000" height="400">
+      <path d="M 200 200 A 150 100    360              1          1      300 300" stroke="red" fill="none"> </path>
+    </svg> -->
+
+  <!-- 修改  large-arc-flag、sweep-flag（图示 04-A） -->
+  <!-- <svg width="1000" height="400">
+    <path d="M 200 200 A 150 100,   0,               1,         1,     300 300" fill="green" />
+  </svg> -->
+
+
+
+
+  <!-- 
+
+    四、贝塞尔曲线
+
+      - 首先是理解贝塞尔曲线的原理，然后套用使用参数即可
+      - 一般当你知道你需要用到这个公式时，那你一定是理解原理的
+      - 借助 图示 04-B2、04-B3 理解
+        - 二次贝塞尔曲线，一个起点、一个终点、一个控制点
+        - 三次贝塞尔曲线，一个起点、一个终点、两个控制点
+
+  -->
+
+    <svg width="1000" height="400">
+
+      <!-- 二次贝塞尔曲线 Q -->
+      <!-- <path id="lineAB" d="M 100 350 l 150 -300" stroke="red" stroke-width="3" fill="none" />
+      <path id="lineBC" d="M 250 50 l 150 300" stroke="red" stroke-width="6" fill="none" />
+      <path d="M 175 200 l 150 0" stroke="green" stroke-width="3" fill="none" />
+      <path d="M 100 350 q 150 -300 300 0" stroke="blue" stroke-width="5" fill="none" /> -->
+
+      <!-- 光滑二次贝塞尔曲线 T -->
+      <!-- <path d="M20 80 Q90 140, 130 80 T250 140 T350 40 " stroke="#000000" fill="none" style="stroke-width: 2;"/> -->
+
+      <!-- 三次贝塞尔曲线 C -->
+      <!-- <path d="M20 20 C90 140,130 140,200 25" stroke="#000000" fill="none" style="stroke-width: 2;"/> -->
+
+      <!-- 光滑三次贝塞尔曲线 S -->
+      <path d="M20 80 C90 140, 130 140, 180 80 S250 60, 280 120" stroke="#000000" fill="none" style="stroke-width: 2;"/>
+      <!-- <path d="M20 80 C90 140, 130 140, 180 80 S250 60, 280 120 S380 150, 450 80" stroke="#000000" fill="none" style="stroke-width: 2;"/> -->
+      <!-- <path d="M20 80 S80 150, 150 80" stroke="#000000" fill="none" style="stroke-width: 2;"/> -->
+
+    </svg>
+
+    <a href="./05_分组和坐标系.html">05_分组和坐标系</a>
+    
+  </div>
+</body>
+</html>
